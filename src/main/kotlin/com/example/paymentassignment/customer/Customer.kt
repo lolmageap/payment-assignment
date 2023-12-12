@@ -14,5 +14,4 @@ class Customer(
 
     val name: String,
 
-    val bankBook: Bankbook,
 ): BaseEntity()

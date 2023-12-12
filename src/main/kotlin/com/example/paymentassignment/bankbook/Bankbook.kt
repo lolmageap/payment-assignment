@@ -1,5 +1,6 @@
 package com.example.paymentassignment.bankbook
 
+import com.example.paymentassignment.customer.Customer
 import com.example.paymentassignment.util.BaseEntity
 import org.springframework.data.annotation.Id
 import java.math.BigDecimal
@@ -11,8 +12,10 @@ class Bankbook(
     @Id
     val id: Long = 0,
 
+    val customer: Customer,
+
     val accountNumber: String,
 
-    val balance: BigDecimal,
+    var balance: BigDecimal,
 
 ): BaseEntity()
