@@ -14,13 +14,19 @@ class OrderService(
         bankbook: Bankbook,
         market: Market,
         price: BigDecimal,
-    ) {
+        orderToken: String,
+    ): Order {
         val order = Order(
             customer = bankbook.customer,
             market = market,
             price = price,
+            orderToken = orderToken,
         )
-        orderRepository.save(order)
+        return orderRepository.save(order)
     }
+
+    fun getLastOrder(orderToken: String) =
+        orderRepository.findTop1ByOrderTokenOrderByCreatedAtDesc(orderToken)
+
 
 }
