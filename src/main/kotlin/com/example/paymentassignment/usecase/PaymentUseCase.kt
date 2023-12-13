@@ -16,17 +16,34 @@ class PaymentUseCase(
     private val orderService: OrderService,
     private val paymentHistoryService: PaymentHistoryService,
 ) {
-    suspend fun payout(bankbook: Bankbook, market: Market, price: BigDecimal) {
+    suspend fun payout(
+        bankbook: Bankbook,
+        market: Market,
+        price: BigDecimal,
+        orderToken: String,
+    ) {
+        checkPaymentStatus(orderToken)
+
+        val order = orderService.saveOrder(bankbook, market, price, orderToken)
+
         val isSuccess =
             if (bankbook.balance < price) {
                 false
             } else {
                 bankbookService.payMoney(bankbook, price)
                 marketService.receiveMoney(market, price)
-                orderService.saveOrder(bankbook, market, price)
                 true
             }
-        paymentHistoryService.saveHistory(bankbook, market, price, isSuccess)
+
+        paymentHistoryService.saveHistory(bankbook, market, order, price, isSuccess)
+    }
+
+    private suspend fun checkPaymentStatus(orderToken: String) {
+        orderService.getLastOrder(orderToken)
+            ?.let { lastOrder ->
+                val isSuccess = paymentHistoryService.isSuccessToOrder(lastOrder)
+                if (isSuccess) throw IllegalStateException("이미 결제가 완료된 주문입니다.")
+            }
     }
 
 }
