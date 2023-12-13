@@ -4,6 +4,7 @@ import com.example.paymentassignment.customer.Customer
 import com.example.paymentassignment.market.Market
 import com.example.paymentassignment.util.BaseEntity
 import org.springframework.data.annotation.Id
+import org.springframework.data.relational.core.mapping.Table
 import java.math.BigDecimal
 
 /**
@@ -14,9 +15,13 @@ import java.math.BigDecimal
  * 상품 정보( 1:N ), 총 결제 금액 에서 상품의 정보가 추후에 변경이 되면 주문에 영향을 받게 됩니다. ( 고민 )
  * 상품 snap shot 을 만들지... 만들게 된다면 어떻게 관리를 해야할지...
  */
+
+@Table(name = "order_table")
 class Order(
     @Id
     val id: Long = 0,
+
+    val orderToken: String,
 
     val customer: Customer,
 
