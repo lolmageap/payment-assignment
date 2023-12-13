@@ -2,6 +2,7 @@ package com.example.paymentassignment.paymenthistory
 
 import com.example.paymentassignment.customer.Customer
 import com.example.paymentassignment.market.Market
+import com.example.paymentassignment.order.Order
 import com.example.paymentassignment.util.BaseEntity
 import org.springframework.data.annotation.Id
 import java.math.BigDecimal
@@ -17,6 +18,8 @@ class PaymentHistory(
     val customer: Customer,
 
     val market: Market,
+
+    val order: Order,
 
     val price: BigDecimal,
 
