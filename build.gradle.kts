@@ -33,6 +33,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     implementation("org.springframework:spring-jdbc")
     implementation("org.springframework.modulith:spring-modulith-starter-core")
+    implementation("io.r2dbc:r2dbc-h2")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.springframework.modulith:spring-modulith-starter-test")
@@ -55,12 +56,3 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
-
-// tasks.test {
-// 	outputs.dir(snippetsDir)
-// }
-
-// tasks.asciidoctor {
-// 	inputs.dir(snippetsDir)
-// 	dependsOn(test)
-// }
